@@ -21,7 +21,7 @@
 				<h1>Please paste video link here then press the button</h1>
 			</div>
 			<div id="searchBox">
-				<form id="form1" method="post">
+				<form id="form1" action="{% url 'Downloader:loadPage'%}" method="post">
 					{% csrf_token %}
 					<input type="text" name="target" id="searchFor" value="" placeholder="...input url" />
 					<button id="go" type="submit"></button>

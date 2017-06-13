@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'Downloader/style.css' %}" />
     <head>
         <meta charset="utf-8">
     </head>
     <body>
+		<h1>this page is just a springboard...</h1>
+		<div id="imageBox">
+			<img id="ans" src="{{ link }}">
+		</div>
     </body>
 </html>
