@@ -1,0 +1,46 @@
+body {
+  background-image: url("http://i2.hdslb.com/bfs/archive/505431cb46ec36d87e5b8da0cd96bb68a5142603.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Avenir;
+  color: #FFF;
+  text-shadow: 0px 2px 4px #000;
+}
+
+#backbtn {
+  float: left;
+  margin: 24px;
+  color: #FFF;
+  font-size: 36px;
+  font-weight: lighter;
+}
+
+.info {
+  float: right top;
+  margin: 24px;
+  text-align: right;
+  font-size: 36px;
+  font-weight: lighter;
+}
+
+.download {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  bottom: -400px;
+  left: -32px;
+}
+
+.download p {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+#downloadbtn {
+  font-size: 28px;
+  font-weight: lighter;
+  color: #FFF;
+  margin-top: 15px;
+  margin-left: 32px;
+}
