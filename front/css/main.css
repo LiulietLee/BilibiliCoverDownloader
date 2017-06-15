@@ -1,5 +1,4 @@
 body {
-  background-image: url("background-img.jpg");
   font-family: Avenir;
   margin: 0px;
   background-position: center top;
@@ -21,7 +20,7 @@ body {
 }
 
 #btn {
-  background-image: url("search.png");
+  background-image: url("img/search.png");
   background-color: #F6F6F6;
   position: absolute;
   width: 66px;
@@ -30,6 +29,7 @@ body {
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
   box-shadow: 0px 2px 4px #000;
+  cursor: pointer;
 }
 
 h1 {
