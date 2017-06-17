@@ -1,55 +1,59 @@
-/*
-* @Author: Haut-Stone
-* @Date:   2017-06-17 14:19:49
-* @Last Modified by:   Haut-Stone
-* @Last Modified time: 2017-06-17 15:06:48
-*/
 body {
-  background-repeat: no-repeat;
-  background-size: cover;
   font-family: Avenir;
-  color: #FFF;
-  text-shadow: 0px 2px 4px #000;
+  margin: 0px;
+  background: no-repeat center center fixed;
+  -webkit-background–size: cover;
+  -moz-background–size: cover;
+  -o-background–size: cover;
+  background–size: cover;
 }
 
-a {
-  text-decoration: none;
-}
-
-#backbtn {
-  float: left;
-  margin: 24px;
-  color: #FFF;
-  font-size: 36px;
-  font-weight: lighter;
-}
-
-.info {
-  float: right top;
-  margin: 24px;
-  text-align: right;
-  font-size: 36px;
-  font-weight: lighter;
-}
-
-.download {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.cont {
+  background-color: rgba(0, 0, 0, 0.36);
+  border: none;
+  border-radius: 16px;
+  padding: 70px 0;
+  box-shadow: 0px 2px 4px #000;
+  height: 200px;
+  width: 1000px;
+  margin: auto;
   position: relative;
-  bottom: -400px;
-  left: -32px;
+  top: 160px;
 }
 
-.download p {
-  font-size: 20px;
-  font-weight: lighter;
+#btn {
+  background-image: url("images/search.png");
+  background-color: #F6F6F6;
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  border: none;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 0px 2px 4px #000;
+  cursor: pointer;
 }
 
-#downloadbtn {
-  font-size: 28px;
-  font-weight: lighter;
+h1 {
   color: #FFF;
-  margin-top: 15px;
-  margin-left: 32px;
+  font-size: 40px;
+  text-shadow: 0px 2px 4px #000;
+  font-weight: lighter;
+  text-align: center;
+}
+
+#form1 {
+  text-align: center;
+  position: relative;
+  left: -33px;
+}
+
+#search {
+  height: 64px;
+  width: 550px;
+  border: none;
+  font-size: 32px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0px 2px 4px #000;
 }
