@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
   <meta charset="utf-8">
   <title>BilibiliDownloader</title>
-  <link rel="stylesheet" type="text/css" href="css/image-site-style.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'Downloader/image-site-style.css' %}">
 </head>
 <body style="background-image: url(http://i2.hdslb.com/bfs/archive/505431cb46ec36d87e5b8da0cd96bb68a5142603.jpg)">
   <div class="up">
-    <a id="backbtn" href="file:///Users/liulietlee/Developer/BCD/BilibiliCoverDownloader/front/index.html"><b>返回</b></a>
+    <a id="backbtn" href="{% url 'Downloader:helloPage'%}"><b>返回</b></a>
     <div class="info">
       <p>【咬人猫】Love Me If You Can❤o(*≧▽≦)ツ</p>
       <p>UP主：=咬人猫=</p>

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'Downloader/style.css' %}" />
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body>
-		<h1>this page is just a springboard...</h1>
-		<div id="imageBox">
-			<img id="ans" src="{{ link }}">
-		</div>
-    </body>
+<html>
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <title>BilibiliDownloader</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'Downloader/image-site-style.css' %}">
+</head>
+<body style="background-image: url({{link}})">
+  <div class="up">
+    <a id="backbtn" href="{% url 'Downloader:helloPage'%}"><b>返回</b></a>
+    <div class="info">
+      <p>{{title}}</p>
+      <p>{{author}}</p>
+    </div>
+  </div>
+  <div class="download">
+    <p>{{link}}</p>
+    <a id="downloadbtn" href="{{link}}"><b>下载</b></a>
+  </div>
+</body>
 </html>
+

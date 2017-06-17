@@ -12,7 +12,7 @@ def helloPage(request):
 #装载界面
 def loadPage(request):
 
-	url = request.POST['target']
+	url = "http://www.bilibili.com/video/" + request.POST['target']
 	print(url)
 
 	headers = {
@@ -31,10 +31,18 @@ def loadPage(request):
 	r = requests.get(url, headers = headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
 
-	title = bs.title.text.split('_')[0]#视频标题
+	link = bs.findAll('img')[0].get('src')
+	if link == None:
+		return render(request, 'Downloader/resultPage.html')
+
+	title = bs.findAll('h1')[0].get('title')
+	contents = bs.findAll('meta')
+	author = contents[3].get('content')
+	
+	print(link)
 	print(title)
-	link = 'http:' + bs.body.img['src']#封面选择
-	return render(request, 'Downloader/loadPage.html', {'link':link})
+	print(author)
+	return render(request, 'Downloader/loadPage.html', {'link':link, 'title':title, 'author':author})
 
 #结果界面
 def rusultPage(request):

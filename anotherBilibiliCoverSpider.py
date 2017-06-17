@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: li
 # @Date:   2017-06-13 14:52:03
-# @Last Modified by:   li
-# @Last Modified time: 2017-06-13 15:14:28
+# @Last Modified by:   Haut-Stone
+# @Last Modified time: 2017-06-17 15:26:03
 
 import os
 import re, requests, sys
@@ -27,17 +27,26 @@ def main(av):
 	r = requests.get(url, headers = headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
 
-	title = bs.title.text.split('_')[0]#视频标题
-	print(title)
-	link = 'http:' + bs.body.img['src']#封面选择
+	# title = bs.title.text.split('_')[0]#视频标题
+	# print(title)
+	# link = 'http:' + bs.body.img['src']#封面选择
 
-	tail = re.findall('.*(\.\w+)', link)[0]#图片扩展名
-	pic = 'cover' + tail
+	
 
-	#保存图片
-	r = requests.get(link)
-	if r.status_code == 200:
-		open(pic, 'wb').write(r.content)
+	link = bs.findAll('img')[0].get('src')
+	title = bs.findAll('h1')[0].get('title')
+	contents = bs.findAll('meta')
+	author = contents[3].get('content')
+	print(author)
+	if link != None:
+		link = "http:" + link
+		#保存图片
+		r = requests.get(link)
+		tail = re.findall('.*(\.\w+)', link)[0]#图片扩展名
+		pic = 'cover' + tail	
+		if r.status_code == 200:
+			open(pic, 'wb').write(r.content)
+
 
 if __name__ == '__main__':
 	if len(sys.argv) != 2 :

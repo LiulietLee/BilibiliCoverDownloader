@@ -25,7 +25,7 @@ SECRET_KEY = 'cs^$z$&id3v*=i+y-a^3n807@=*-r^l(^zpe7(44-k$w6z%s*s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.154', '127.0.0.1']
 
 
 # Application definition

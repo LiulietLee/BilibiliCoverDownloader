@@ -16,7 +16,6 @@ imgLink = page.findAll('img')[0].get('src')
 title = page.findAll('h1')[0].get('title')
 contents = page.findAll('meta')
 author = contents[3].get('content')
-description = contents[2].get('content')
 
 if imgLink != None:
     imgUrl = "http:" + imgLink
