@@ -35,6 +35,7 @@ def loadPage(request):
 	if link == None:
 		return render(request, 'Downloader/resultPage.html')
 
+	link = "http:" + link
 	title = bs.findAll('h1')[0].get('title')
 	contents = bs.findAll('meta')
 	author = contents[3].get('content')
