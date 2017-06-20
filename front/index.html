@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-{% load static %}
 <head>
   <meta charset="utf-8">
   <title>BilibiliCoverDownloader</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'Downloader/main.css' %}">
-  <script type="text/javascript" src="{% static 'Downloader/jquery-3.2.1.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'Downloader/main.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="css\main.css">
+  <script type="text/javascript" src="javascript\jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="javascript\main.js"></script>
 </head>
 <body>
   <div class="cont">
     <h1>在这里输入av号 </h1>
     <div class="searchBar">
-      <form id="form1" action="{% url 'Downloader:loadPage'%}" method="post">
-        {% csrf_token %}
+      <form id="form1" action="#" method="post">
         <input id="search" name="target" value="av"/>
         <button id="btn" type="submit"></button>
       </form>

@@ -5,7 +5,7 @@ body {
   -webkit-background–size: cover;
   -moz-background–size: cover;
   -o-background–size: cover;
-  background–size: cover;
+  background-size: cover;
 }
 
 .cont {
@@ -22,7 +22,7 @@ body {
 }
 
 #btn {
-  background-image: url("images/search.png");
+  background-image: url("css\img\search.png");
   background-color: #F6F6F6;
   position: absolute;
   width: 66px;
