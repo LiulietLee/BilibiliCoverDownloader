@@ -3,10 +3,16 @@
     <head>
         <meta charset="utf-8">
         <title>找不到图呢……</title>
-        <link rel="stylesheet" type="text\css" href="404-style.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'Downloader/404-style.css' %}">
     </head>
     <body>
-        <h1>这个视频不存在哦(｀・ω・´)</h1>
-        <a href="{% url 'Downloader:helloPage'%}">返回</a>
+        <div class="backBtn">
+            <a href="{% url 'Downloader:helloPage'%}">返回</a>
+        </div>
+        <div id="main">
+            <div class="fof">
+                <h1>这个视频不存在哦(｀・ω・´)</h1>
+            </div>
+        </div>
     </body>
 </html>
