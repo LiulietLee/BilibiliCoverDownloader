@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 {% load static %}
 <head>
   <meta charset="utf-8">
@@ -11,12 +11,12 @@
     <a id="backbtn" href="{% url 'Downloader:helloPage'%}"><b>返回</b></a>
     <div class="info">
       <p>{{title}}</p>
-      <p>{{author}}</p>
+      <p>UP主：{{author}}</p>
     </div>
   </div>
   <div class="download">
     <p>{{link}}</p>
-    <a id="downloadbtn" href="{{link}}" download="{{title}}"><b>下载</b></a>
+    <a id="downloadbtn" href="{{link}}" download><b>下载</b></a>
   </div>
 </body>
 </html>
