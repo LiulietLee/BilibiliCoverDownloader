@@ -33,7 +33,7 @@ def loadPage(request):
 
 	link = bs.findAll('img')[0].get('src')
 	if link == None:
-		return render(request, 'Downloader/resultPage.html')
+		return render(request, 'Downloader/404Page.html')
 
 	link = "http:" + link
 	title = bs.findAll('h1')[0].get('title')
@@ -44,9 +44,4 @@ def loadPage(request):
 	print(title)
 	print(author)
 	return render(request, 'Downloader/loadPage.html', {'link':link, 'title':title, 'author':author})
-
-#结果界面
-def rusultPage(request):
-	return HttpResponse("now you can see the Cover!")
-
-
+	
