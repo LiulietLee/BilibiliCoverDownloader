@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title>BilibiliDownloader</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'Downloader/image-site-style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'Downloader/image_site_style.css' %}">
 </head>
-<body style="background-image: url({{link}})">
+<body style="background-image: url({{url}})">
   <div class="up">
     <a id="backbtn" href="{% url 'Downloader:helloPage'%}"><b>返回</b></a>
     <div class="info">
@@ -15,8 +15,8 @@
     </div>
   </div>
   <div class="download">
-    <p>{{link}}</p>
-    <a id="downloadbtn" href="{{link}}" download><b>下载</b></a>
+    <p>{{url}}</p>
+    <a id="downloadbtn" href="{{url}}" download><b>下载</b></a>
   </div>
 </body>
 </html>

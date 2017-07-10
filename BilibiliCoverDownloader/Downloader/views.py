@@ -5,42 +5,47 @@ import re, requests, sys
 from bs4 import BeautifulSoup
 import json
 
-#开始界面
+#手工输入跳转
 def helloPage(request):
 	return render(request ,'Downloader/helloPage.html')
 
-#装载界面
+#图片结果界面
 def loadPage(request):
 	av_number = request.POST['target']
 	info = spider(av_number)
 
-	if info['link'] == "error":
+	if info['url'] == "error":
 		return render(request, 'Downloader/404Page.html')
 	else:
 		return render(request, 'Downloader/loadPage.html', info)
-	
-def iosPage(request, target):
-	av_number = "av" + target
+
+# ios端的API
+def iosPage(request, number):
+	av_number = "av" + number
 	info = spider(av_number)
 
 	filename = "msg.json"
-	with open(filename, 'w') as f:
-		json.dump(info, f, ensure_ascii=False, indent=2)
+	try:
+		with open(filename, 'w') as f:
+			json.dump(info, f, ensure_ascii=False, indent=2)
+	except IOError:
+		print("The file doesn't exit.")
+	else:
+		with open(filename) as f:
+			return HttpResponse(f)
 
-	with open(filename) as f:
-		return HttpResponse(f)
-
-def resultPage(request, target):
-	av_number = "av" + target
+#从url直接跳转
+def resultPage(request, number):
+	av_number = "av" + number
 	info = spider(av_number)
 
-	if info['link']== "error":
+	if info['url']== "error":
 		return render(request, 'Downloader/404Page.html')
 	else:
 		return render(request, 'Downloader/loadPage.html', info)
 
 # 爬取图片的爬虫代码
-def spider(target):
+def spider(av_number):
 
 	headers = {
 		'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -55,32 +60,32 @@ def spider(target):
 		'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
 	}
 
-	url = "http://www.bilibili.com/video/" + target
-	r = requests.get(url, headers = headers)
+	video_url = "http://www.bilibili.com/video/" + av_number
+	r = requests.get(video_url, headers = headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
-	link = bs.findAll('img')[0].get('src')
+	img_link = bs.findAll('img')[0].get('src')
 
-	if link == None:
+	if img_link == None:
 		msg = {
-			'link':"error",
+			'url':'error',
 			'title':'error',
 			'author':'error',
 		}
 	else:
-		link = "http:" + link
+		img_url = "http:" + img_link
 		title = bs.findAll('h1')[0].get('title')
 		contents = bs.findAll('meta')
 		author = contents[3].get('content')
 
 		msg = {
-			'link':link,
+			'url':img_url,
 			'title':title,
 			'author':author,
 		}
 
-		print("Url: " + url)
-		print("Link " + link)
-		print("Title " + title)
-		print("Author " + author)
+		print("videoUrl: " + video_url)
+		print("imgUrl: " + img_url)
+		print("Title: " + title)
+		print("Author: " + author)
 	return  msg
 
