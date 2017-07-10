@@ -11,97 +11,36 @@ def helloPage(request):
 
 #装载界面
 def loadPage(request):
+	av_number = request.POST['target']
+	info = spider(av_number)
 
-	url = "http://www.bilibili.com/video/" + request.POST['target']
-	print(url)
-
-	headers = {
-		'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-		'Accept-Encoding':'gzip, deflate, sdch',
-		'Accept-Language':'zh-CN,zh;q=0.8',
-		'Cache-Control':'max-age=0',
-		'Connection':'keep-alive',
-		'Cookie':'sid=ao8p7v84; UM_distinctid=15b7180b90f66-0f075e064d05ab-396c7807-1fa400-15b7180b91285; pgv_pvi=3513811968; fts=1492257914; finger=14bc3c4e; buvid3=835A244A-230C-4CF5-8FB3-E8C675EE8EA115577infoc; purl_token=bilibili_1497336042; pgv_si=s4574550016; CNZZDATA2724999=cnzz_eid%3D108963144-1492253091-%26ntime%3D1497334496',
-		'Host':'www.bilibili.com',
-		'Referer':'http://space.bilibili.com/3098214',
-		'Upgrade-Insecure-Requests':'1',
-		'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-	}
-
-	r = requests.get(url, headers = headers)
-	bs = BeautifulSoup(r.text, 'html5lib')
-
-	link = bs.findAll('img')[0].get('src')
-	if link == None:
+	if info['link'] == "error":
 		return render(request, 'Downloader/404Page.html')
-
-	link = "http:" + link
-	title = bs.findAll('h1')[0].get('title')
-	contents = bs.findAll('meta')
-	author = contents[3].get('content')
-	
-	print(link)
-	print(title)
-	print(author)
-	return render(request, 'Downloader/loadPage.html', {'link':link, 'title':title, 'author':author})
+	else:
+		return render(request, 'Downloader/loadPage.html', info)
 	
 def iosPage(request, target):
-	url = "http://www.bilibili.com/video/av" + target
-	headers = {
-		'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-		'Accept-Encoding':'gzip, deflate, sdch',
-		'Accept-Language':'zh-CN,zh;q=0.8',
-		'Cache-Control':'max-age=0',
-		'Connection':'keep-alive',
-		'Cookie':'sid=ao8p7v84; UM_distinctid=15b7180b90f66-0f075e064d05ab-396c7807-1fa400-15b7180b91285; pgv_pvi=3513811968; fts=1492257914; finger=14bc3c4e; buvid3=835A244A-230C-4CF5-8FB3-E8C675EE8EA115577infoc; purl_token=bilibili_1497336042; pgv_si=s4574550016; CNZZDATA2724999=cnzz_eid%3D108963144-1492253091-%26ntime%3D1497334496',
-		'Host':'www.bilibili.com',
-		'Referer':'http://space.bilibili.com/3098214',
-		'Upgrade-Insecure-Requests':'1',
-		'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-	}
-
-	r = requests.get(url, headers = headers)
-	bs = BeautifulSoup(r.text, 'html5lib')
-
-	link = bs.findAll('img')[0].get('src')
-	if link == None:
-
-		msg = {
-			"title":"error",
-			"author":"error",
-			"url":"error",	
-		}
-
-		filename = "msg.json"
-		with open(filename, 'w') as f:
-			json.dump(msg, f, ensure_ascii=False, indent=2)
-
-		with open(filename) as f:
-			return HttpResponse(f)
-
-	link = "http:" + link
-	title = bs.findAll('h1')[0].get('title')
-	contents = bs.findAll('meta')
-	author = contents[3].get('content')
-
-	msg = {
-		"title":title,
-		"author":author,
-		"url":link,	
-	}
-
-	print(msg)
+	av_number = "av" + target
+	info = spider(av_number)
 
 	filename = "msg.json"
 	with open(filename, 'w') as f:
-		json.dump(msg, f, ensure_ascii=False, indent=2)
+		json.dump(info, f, ensure_ascii=False, indent=2)
 
 	with open(filename) as f:
 		return HttpResponse(f)
 
 def resultPage(request, target):
-	url = "http://www.bilibili.com/video/av" + target
-	print(url)
+	av_number = "av" + target
+	info = spider(av_number)
+
+	if info['link']== "error":
+		return render(request, 'Downloader/404Page.html')
+	else:
+		return render(request, 'Downloader/loadPage.html', info)
+
+# 爬取图片的爬虫代码
+def spider(target):
 
 	headers = {
 		'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -116,19 +55,32 @@ def resultPage(request, target):
 		'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
 	}
 
+	url = "http://www.bilibili.com/video/" + target
 	r = requests.get(url, headers = headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
-
 	link = bs.findAll('img')[0].get('src')
-	if link == None:
-		return render(request, 'Downloader/404Page.html')
 
-	link = "http:" + link
-	title = bs.findAll('h1')[0].get('title')
-	contents = bs.findAll('meta')
-	author = contents[3].get('content')
-	
-	print(link)
-	print(title)
-	print(author)
-	return render(request, 'Downloader/loadPage.html', {'link':link, 'title':title, 'author':author})
+	if link == None:
+		msg = {
+			'link':"error",
+			'title':'error',
+			'author':'error',
+		}
+	else:
+		link = "http:" + link
+		title = bs.findAll('h1')[0].get('title')
+		contents = bs.findAll('meta')
+		author = contents[3].get('content')
+
+		msg = {
+			'link':link,
+			'title':title,
+			'author':author,
+		}
+
+		print("Url: " + url)
+		print("Link " + link)
+		print("Title " + title)
+		print("Author " + author)
+	return  msg
+
