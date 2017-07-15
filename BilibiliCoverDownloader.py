@@ -21,7 +21,6 @@ if imgLink != None:
     imgUrl = "http:" + imgLink
     print title
     print author
-    print description
     print imgUrl
 else:
     print "Cannot fetch url"
