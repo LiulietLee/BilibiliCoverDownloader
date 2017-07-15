@@ -4,6 +4,8 @@ from django.http import HttpResponse
 import re, requests, sys
 from bs4 import BeautifulSoup
 import json
+import sys
+
 
 #手工输入跳转
 def helloPage(request):
@@ -46,6 +48,9 @@ def resultPage(request, number):
 
 # 爬取图片的爬虫代码
 def spider(av_number):
+
+	reload(sys)
+	sys.setdefaultencodin('utf-8')
 
 	headers = {
 		'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
