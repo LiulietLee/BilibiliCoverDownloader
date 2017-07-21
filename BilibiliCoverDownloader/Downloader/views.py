@@ -55,12 +55,7 @@ def searchUpPage(request, up_name):
 	r = requests.get(video_url, headers = headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
 
-	up_infos = {
-		'sum':0,
-		'upusers':[
-
-		]
-	}
+	up_infos = {'sum':0,'upusers':[]}
 
 	for up in bs.findAll(attrs={'class': 'up-item'}):
 		upface = up.findAll('div')[0]
