@@ -2,8 +2,9 @@ import urllib2
 from bs4 import BeautifulSoup
 
 upuser = raw_input('input: ')
+print upuser
 videoUrl = 'https://search.bilibili.com/upuser?keyword=' + upuser
-headers = { 'User-Agent' : 'Mozilla/5.0' }
+headers = {  }
 req = urllib2.Request(videoUrl, None, headers)
 html = urllib2.urlopen(req).read()
 
@@ -21,4 +22,4 @@ for up in page.find_all(attrs={'class': 'up-item'}):
     print videoNum
     print fansNum
     print 'image url: ' + imgUrl
-    print '___________________________________________________________________________'
+    print '____________________________________________________________________'
