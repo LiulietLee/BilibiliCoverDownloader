@@ -6,6 +6,7 @@ videoUrl = 'https://api.live.bilibili.com/AppRoom/index?device=phone&platform=io
 headers = { 'User-Agent' : 'Mozilla/5.0' }
 req = urllib2.Request(videoUrl, None, headers)
 data = urllib2.urlopen(req).read()
+print data
 
 decoded = json.loads(data)
 print 'room id: ' + str(decoded['data']['room_id'])

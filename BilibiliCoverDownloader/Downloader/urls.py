@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-06-13 19:50:42
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-07-21 18:03:06
+# @Last Modified time: 2017-07-23 18:45:04
 
 from django.conf.urls import url
 from .import views
