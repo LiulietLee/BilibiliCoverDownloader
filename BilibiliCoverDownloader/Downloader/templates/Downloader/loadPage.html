@@ -6,14 +6,9 @@
   <title>BilibiliDownloader</title>
   <link rel="stylesheet" type="text/css" href="{% static 'Downloader/image-site-style.css' %}">
 </head>
-<script src="{% static 'Downloader/referrer-killer.js' %}"></script>
 <span id="noreferer"></span>
-<script>
-  document.getElementById('noreferer').innerHTML = ReferrerKiller.imageHtml('{{url}}');
-</script>
 <body style="background-image: url({{url}})">
   <div class="up">
-    <a id="backbtn" href="{% url 'Downloader:helloPage'%}"><b>返回</b></a>
     <div class="info">
       <p>{{title}}</p>
       <p>UP主：{{author}}</p>
@@ -23,6 +18,10 @@
     <p>{{url}}</p>
     <a id="downloadbtn" rel="noreferrer" href="{{url}}" download><b>下载</b></a>
   </div>
+  <script src="{% static 'Downloader/referrer-killer.js' %}"></script>
+  <script>
+    document.getElementById('noreferer').innerHTML = ReferrerKiller.imageHtml('{{url}}');
+  </script>
 </body>
 </html>
 

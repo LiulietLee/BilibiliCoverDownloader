@@ -8,18 +8,11 @@ body {
   font-family: Avenir;
   color: #FFF;
   text-shadow: 0px 2px 4px #000;
+  height: 90vh;
 }
 
 a {
   text-decoration: none;
-}
-
-#backbtn {
-  float: left;
-  margin: 24px;
-  color: #FFF;
-  font-size: 36px;
-  font-weight: lighter;
 }
 
 .info {
@@ -31,17 +24,21 @@ a {
 }
 
 .download {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: relative;
-  bottom: -400px;
-  left: -32px;
+  position: absolute;
+  bottom: 16px;
+  width: 850px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.download * {
+  display: inline;
 }
 
 .download p {
   font-size: 20px;
   font-weight: lighter;
+  text-align: center;
 }
 
 #downloadbtn {

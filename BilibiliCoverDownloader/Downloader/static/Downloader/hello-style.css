@@ -8,6 +8,7 @@
 body {
   font-family: Avenir;
   margin: 0px;
+  height: 100vh;
   background: no-repeat center center fixed;
   -webkit-background–size: cover;
   -moz-background–size: cover;
@@ -23,9 +24,10 @@ body {
   box-shadow: 0px 2px 4px #000;
   height: 200px;
   width: 1000px;
-  margin: auto;
-  position: relative;
-  top: 160px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 #btn {
@@ -64,3 +66,5 @@ h1 {
   border-bottom-left-radius: 8px;
   box-shadow: 0px 2px 4px #000;
 }
+
+*:focus { outline: none; }
