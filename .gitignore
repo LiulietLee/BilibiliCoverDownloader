@@ -6,3 +6,5 @@
 BilibiliCoverDownloader/BilibiliCoverDownloader/__pycache__/wsgi.cpython-35.pyc
 
 *.pyc
+
+*.pyc

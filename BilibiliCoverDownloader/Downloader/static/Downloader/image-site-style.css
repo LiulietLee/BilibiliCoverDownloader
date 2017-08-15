@@ -15,6 +15,14 @@ a {
   text-decoration: none;
 }
 
+#backbtn {
+  float: left;
+  margin: 24px;
+  color: #FFF;
+  font-size: 32px;
+  font-weight: lighter;
+}
+
 .info {
   float: right top;
   margin: 24px;
