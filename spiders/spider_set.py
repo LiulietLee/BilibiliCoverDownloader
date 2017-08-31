@@ -2,11 +2,12 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-08-24 16:06:45
+# @Last Modified time: 2017-08-31 20:50:24
 
 from bs4 import BeautifulSoup
 import requests
 import re
+import os
 import json
 
 class AVInfoSpider():
@@ -121,3 +122,48 @@ class UpInfoSpider():
 		else:
 			info = self.analysis(response)
 			return info
+
+# 爬取直播界面的背景图片，并保存
+class Xspider():
+
+	def main(self, url):
+		response = self.request(url)
+		if response == None:
+			print("没有获取到任何信息哦")
+		else:
+			soup = self.analysis(response)
+			self.get_bg(soup, url)
+
+	def request(self, url):
+		headers = {'User-Agent':'Mozilla/5.0'}
+		try:
+			r = requests.get(url, timeout=5, headers=headers)
+			r.raise_for_status()
+			r.encoding = r.apparent_encoding
+			return r.text
+		except:
+			print("好可惜，无法与这个网页建立通讯")
+
+	def analysis(self, response):
+		soup = BeautifulSoup(response, 'html5lib')
+		return soup
+
+	def get_bg(self, soup, url):
+		name = url.split('/')[-1]
+		# 这个地方的路径改成自己的路径就可以用了
+		path = '/Users/li/Desktop/' + name + '.jpg'
+		bg_link = soup.find_all('div', class_='bk-img w-100 h-100')[0]['style'][22:-1]
+		if bg_link[0] == '/':
+			bg_link = 'https:' + bg_link
+			try:
+				headers = {'User-Agent':'Mozilla/5.0'}
+				img = requests.get(bg_link, headers=headers)
+				img.raise_for_status()
+				with open(path, 'wb') as f:
+					f.write(img.content)
+					f.close()
+					print('YES! 图片 %s 号已经被保存到桌面了' % name)
+			except:
+				print('啦咧？无法保存图片')
+		else:
+			print('这个图片是bilibili官方提供的，被跳过了 = = ')
