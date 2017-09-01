@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-08-31 20:50:24
+# @Last Modified time: 2017-09-01 10:41:48
 
 from bs4 import BeautifulSoup
 import requests
@@ -142,28 +142,32 @@ class Xspider():
 			r.encoding = r.apparent_encoding
 			return r.text
 		except:
-			print("好可惜，无法与这个网页建立通讯")
+			print("好可惜，无法与网页 %s 建立通讯 " % url.split('/')[-1])
 
 	def analysis(self, response):
-		soup = BeautifulSoup(response, 'html5lib')
+		soup = BeautifulSoup(response, 'lxml')
 		return soup
 
 	def get_bg(self, soup, url):
 		name = url.split('/')[-1]
-		# 这个地方的路径改成自己的路径就可以用了
+		# 这里的路径改成本机路径就可以使用了
 		path = '/Users/li/Desktop/' + name + '.jpg'
-		bg_link = soup.find_all('div', class_='bk-img w-100 h-100')[0]['style'][22:-1]
-		if bg_link[0] == '/':
-			bg_link = 'https:' + bg_link
-			try:
-				headers = {'User-Agent':'Mozilla/5.0'}
-				img = requests.get(bg_link, headers=headers)
-				img.raise_for_status()
-				with open(path, 'wb') as f:
-					f.write(img.content)
-					f.close()
-					print('YES! 图片 %s 号已经被保存到桌面了' % name)
-			except:
-				print('啦咧？无法保存图片')
+		bg_info = soup.find('div', class_='bk-img w-100 h-100')
+		if bg_info == None:
+			print("这个页面被锁定了，里面没有信息")
 		else:
-			print('这个图片是bilibili官方提供的，被跳过了 = = ')
+			bg_link = bg_info['style'][22:-1]
+			if bg_link[0] == '/':
+				bg_link = 'https:' + bg_link
+				try:
+					headers = {'User-Agent':'Mozilla/5.0'}
+					img = requests.get(bg_link, headers=headers)
+					img.raise_for_status()
+					with open(path, 'wb') as f:
+						f.write(img.content)
+						f.close()
+						print('YES! 图片 %s 号已经被保存到桌面了' % name)
+				except:
+					print('啦咧？无法保存图片')
+			else:
+				print('这个图片是bilibili官方提供的，被跳过了 = = ')
