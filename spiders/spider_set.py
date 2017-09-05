@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-01 10:41:48
+# @Last Modified time: 2017-09-02 12:05:24
 
 from bs4 import BeautifulSoup
 import requests
@@ -24,13 +24,13 @@ class AVInfoSpider():
 
 	def analysis(self, response):
 		bs = BeautifulSoup(response.text, 'html5lib')
-		link = bs.findAll('img')[0].get('src')
+		link = bs.find_all('img')[0].get('src')
 		if link == None:
 			print('这个视频不存在')
 			return None
 		else:
-			title = bs.findAll('h1')[0].get('title')
-			contents = bs.findAll('meta')
+			title = bs.find_all('h1')[0].get('title')
+			contents = bs.find_all('meta')
 			author = contents[3].get('content')
 			dic = {'link':'https:' + link, 'title':title, 'author':author,}
 			return dic
@@ -94,11 +94,11 @@ class UpInfoSpider():
 	def analysis(self, response):
 		bs = BeautifulSoup(response.text, 'html5lib')
 		up_infos = {'sum':0,'upusers':[]}
-		for up in bs.findAll(attrs={'class': 'up-item'}):
-			upface = up.findAll('div')[0]
+		for up in bs.find_all(attrs={'class': 'up-item'}):
+			upface = up.find_all('div')[0]
 			name = upface.a['title']
 			imgUrl = 'https:' + upface.a.img['data-src']
-			upinfo = up.findAll('div')[1].findAll('div')[2].findAll('span')
+			upinfo = up.find_all('div')[1].find_all('div')[2].find_all('span')
 			videoNum = re.findall("\d+",upinfo[0].get_text())[0]
 			fansNum = re.findall("\d+",upinfo[1].get_text())[0]
 			up_info = {
