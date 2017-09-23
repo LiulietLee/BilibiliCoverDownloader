@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-02 12:05:24
+# @Last Modified time: 2017-09-23 18:16:49
 
 from bs4 import BeautifulSoup
 import requests
@@ -171,3 +171,37 @@ class Xspider():
 					print('啦咧？无法保存图片')
 			else:
 				print('这个图片是bilibili官方提供的，被跳过了 = = ')
+
+class ArticelImageSpider():
+
+	def request(self, url):
+		headers = {'User-Agent':'Mozilla/5.0'}
+		try:
+			r = requests.get(url, headers=headers)
+			r.raise_for_status()
+			r.encoding = r.apparent_encoding
+			return r.text
+		except:
+			print('无法与这个链接建立通讯')
+
+	def analysis(self, response):
+		soup = BeautifulSoup(response, 'html5lib')
+		error = soup.find_all('div', class_='error')
+		if len(error) == 0:
+			js = soup.find_all('script')[0].text
+			if js == None:
+				print('啊咧？没有诶!')
+				return None
+			else:
+				return js.split('"')[7]
+		else:
+			print('这个链接并不存在')
+			return None	
+
+	def main(self, url):
+		response = self.request(url)
+		if response == None:
+			return None
+		else:
+			img_url = self.analysis(response)
+			return img_url
