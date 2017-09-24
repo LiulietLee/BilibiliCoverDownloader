@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-23 18:16:49
+# @Last Modified time: 2017-09-24 19:05:05
 
 from bs4 import BeautifulSoup
 import requests
@@ -26,7 +26,8 @@ class AVInfoSpider():
 		bs = BeautifulSoup(response.text, 'html5lib')
 		link = bs.find_all('img')[0].get('src')
 		if link == None:
-			print('这个视频不存在')
+			print('这个视频不存在, 也有可能是会员的世界。')
+			print('如果是会员的世界的话，你可以通过调用“fuck_vip_world”方法来解决这个问题。')
 			return None
 		else:
 			title = bs.find_all('h1')[0].get('title')
@@ -50,6 +51,24 @@ class AVInfoSpider():
 			return None
 		else:
 			return {'link':info_dic['link']}
+
+	def fuck_vip_world(self, avNumber, cookies):
+		url = 'http://www.bilibili.com/video/av' + str(avNumber)
+		headers = {'User-Agent':'Mozilla/5.0'}
+		try:
+			r = requests.get(url, headers=headers, timeout=3, cookies=cookies)
+			r.raise_for_status()
+			r.encoding = r.apparent_encoding
+		except:
+			print('无法与这个链接建立通讯')
+		else:
+			if r == None:
+				return None
+			else:
+				info_dic = self.analysis(r)
+				return info_dic
+
+
 
 class LiveCoverSpider():
 
@@ -205,3 +224,15 @@ class ArticelImageSpider():
 		else:
 			img_url = self.analysis(response)
 			return img_url
+
+cookies = {
+	'DedeUserID': 'XXX',
+	'DedeUserID__ckMd5': 'XXX',
+	'SESSDATA': 'XXX'
+}
+
+
+s = AVInfoSpider()
+info = s.fuck_vip_world(13240059, cookies)
+print(info)
+
