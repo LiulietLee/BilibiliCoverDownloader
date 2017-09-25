@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-24 19:10:14
+# @Last Modified time: 2017-09-24 23:36:01
 
 from bs4 import BeautifulSoup
 import requests
@@ -28,7 +28,7 @@ class AVInfoSpider():
 		if link == None:
 			print('这个视频不存在, 也有可能是会员的世界。')
 			print('如果是会员的世界的话，你可以通过调用“fuck_vip_world”方法来解决这个问题。')
-			print('并且主义检查cookies填写的是否合法。')
+			print('并且注意检查cookies填写的是否合法。')
 			return None
 		else:
 			title = bs.find_all('h1')[0].get('title')
