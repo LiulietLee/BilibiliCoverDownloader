@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-30 09:26:40
+# @Last Modified time: 2017-09-30 13:38:13
 
 from bs4 import BeautifulSoup
 from info import cookies
@@ -235,8 +235,6 @@ class ArticelImageSpider():
 对应填进去替换“XXX”就好了
 
 '''
-
-
 
 s = AVInfoSpider()
 info = s.fuck_vip_world(avNumber=13240059, cookies=cookies)
