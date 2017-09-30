@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-import re, requests, sys
 from bs4 import BeautifulSoup
+from info import cookies
+import re, requests, sys
 import json
 
 
@@ -114,11 +115,6 @@ def fuckBilibili(request, av_number):
 
 	url = 'http://www.bilibili.com/video/av' + str(av_number)
 	headers = {'User-Agent':'Mozilla/5.0'}
-	cookies = {
-		'DedeUserID': '221013145',
-		'DedeUserID__ckMd5': '0ada37d8e37bee1f',
-		'SESSDATA': 'ddff3d5b%2C1508937653%2C5dc59211'
-	}
 	default = {'url':'error','title':'error','author':'error'}
 	default_json = json.dumps(default, ensure_ascii=False, indent=2)
 	try:
@@ -144,7 +140,6 @@ def articleCover(request, cv_number):
 	headers = {'User-Agent':'Mozilla/5.0'}
 	default = {'url':'error','title':'error','author':'error'}
 	default_json = json.dumps(default, ensure_ascii=False, indent=2) 
-
 	try:
 		r = requests.get(url, headers=headers)
 		r.raise_for_status()

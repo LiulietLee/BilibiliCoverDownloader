@@ -5,8 +5,5 @@
 
 BilibiliCoverDownloader/BilibiliCoverDownloader/__pycache__/wsgi.cpython-35.pyc
 
-*.pyc
-
-*.pyc
-
-info.py
+BilibiliCoverDownloader/Downloader/info.py
+spiders/info.py
