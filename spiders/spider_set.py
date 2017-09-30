@@ -2,9 +2,10 @@
 # @Author: Haut-Stone
 # @Date:   2017-08-24 10:53:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-24 23:36:01
+# @Last Modified time: 2017-09-30 09:15:46
 
 from bs4 import BeautifulSoup
+from .info import cookies
 import requests
 import re
 import os
@@ -236,11 +237,7 @@ class ArticelImageSpider():
 '''
 
 
-cookies = {
-	'DedeUserID': 'XXX',
-	'DedeUserID__ckMd5': 'XXX',
-	'SESSDATA': 'XXX'
-}
+
 
 s = AVInfoSpider()
 info = s.fuck_vip_world(avNumber=13240059, cookies=cookies)
