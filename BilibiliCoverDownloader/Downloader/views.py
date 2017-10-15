@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# @Author: Haut-Stone
+# @Date:   2017-10-10 15:09:01
+# @Last Modified by:   Haut-Stone
+# @Last Modified time: 2017-10-15 14:41:16
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -9,7 +15,6 @@ import sys
 import re
 
 from .info import cookies
-
 
 headers = {'User-Agent':'Mozilla/5.0'}
 default = {'url':'error','title':'error','author':'error'}
@@ -73,12 +78,28 @@ def searchUpPage(request, up_name):
 def spider(av_number):
 
 	url = "http://www.bilibili.com/video/" + av_number
-	r = requests.get(url, headers = headers)
+	r = requests.get(url, headers=headers)
 	bs = BeautifulSoup(r.text, 'html5lib')
 	img_link = bs.findAll('img')[0].get('src')
 
 	if img_link == None:
-		info = default
+		pre_path = 'https://search.bilibili.com/all'
+		kv = {'keyword':av_number}
+		r = requests.get(pre_path, headers=headers, params=kv)
+		bs = BeautifulSoup(r.text, 'html5lib')
+		re_av_info_li = bs.findAll('li', class_='video list av')
+		if len(re_av_info_li) is 0:
+			info = {'url':'error','title':'error','author':'error'}
+		else:
+			img_dic = re_av_info_li[0].findAll('a')[0].find('img').attrs
+			re_img_link = 'http:' + img_dic['data-src']
+			author = re_av_info_li[0].findAll('a')[-1].string
+			title = re_av_info_li[0].findAll('a')[0].get('title')
+			info = {
+				'url':re_img_link,
+				'title':title,
+				'author':author,
+			}
 	else:
 		img_url = "http:" + img_link
 		title = bs.findAll('h1')[0].get('title')
@@ -89,7 +110,7 @@ def spider(av_number):
 			'title':title,
 			'author':author,
 		}
-	return  info
+	return info
 
 def fuckBilibili(request, av_number):
 

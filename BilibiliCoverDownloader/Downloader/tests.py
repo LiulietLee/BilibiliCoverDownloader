@@ -45,6 +45,7 @@ class APITests(TestCase):
 			'/ios/7/',
 			'/ios/100086/',
 			'/ios/1/',# error url
+			'/ios/15153636/'# bangumi av
 		]
 
 		Logger.log_title('[test_iosPage]')
