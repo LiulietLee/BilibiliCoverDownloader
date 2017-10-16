@@ -2,8 +2,10 @@
 # @Author: Haut-Stone
 # @Date:   2017-09-30 15:22:05
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-09-30 16:01:30
+# @Last Modified time: 2017-10-16 15:01:24
 
+from functools import wraps
+import time
 
 class Logger():
 
@@ -28,3 +30,13 @@ class Logger():
 	def log_(info, index):
 
 		print('\n' + Logger.FAIL + info + Logger.ENDC + '\n')
+
+def my_timer(function):
+	@wraps(function)
+	def function_timer(*args, **kwargs):
+		t0 = time.time()
+		result = function(*args, **kwargs)
+		t1 = time.time()
+		print ("Total time running: %s seconds" % (str(t1-t0)))
+		return result
+	return function_timer

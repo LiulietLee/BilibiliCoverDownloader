@@ -2,23 +2,25 @@
 # @Author: Haut-Stone
 # @Date:   2017-10-10 15:09:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-10-15 14:41:16
+# @Last Modified time: 2017-10-16 15:01:19
 
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from bs4 import BeautifulSoup
-
 import requests
 import json
 import sys
 import re
 
 from .info import cookies
+from .logger import my_timer
 
 headers = {'User-Agent':'Mozilla/5.0'}
 default = {'url':'error','title':'error','author':'error'}
 default_json = json.dumps(default, ensure_ascii=False, indent=2)
+
+
 
 #手工输入跳转
 def helloPage(request):
@@ -50,6 +52,7 @@ def resultPage(request, number):
 		return render(request, 'Downloader/loadPage.html', info)
 
 #爬取up主头像的iOS端API
+@my_timer
 def searchUpPage(request, up_name):
 	url = 'https://search.bilibili.com/upuser?keyword=' + up_name
 	r = requests.get(url, headers = headers)
@@ -75,6 +78,7 @@ def searchUpPage(request, up_name):
 	return HttpResponse(json_obj)
 	
 # 爬取图片的爬虫代码
+@my_timer
 def spider(av_number):
 
 	url = "http://www.bilibili.com/video/" + av_number
@@ -112,6 +116,7 @@ def spider(av_number):
 		}
 	return info
 
+@my_timer
 def fuckBilibili(request, av_number):
 
 	url = 'http://www.bilibili.com/video/av' + str(av_number)
@@ -133,6 +138,7 @@ def fuckBilibili(request, av_number):
 		info_json = json.dumps(info, ensure_ascii=False, indent=2)
 		return HttpResponse(info_json)
 
+@my_timer
 def articleCover(request, cv_number):
 	url = 'http://www.bilibili.com/read/cv' + str(cv_number)
 	try:

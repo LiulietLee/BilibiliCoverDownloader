@@ -22,6 +22,8 @@ class APITests(TestCase):
 	def test_fuckBilibili(self):
 
 		urls = [
+			'/ios/vip/7/',
+			'/ios/vip/1/',
 			'/ios/vip/13240059/',
 			'/ios/vip/1699200000/',# error url
 		]
