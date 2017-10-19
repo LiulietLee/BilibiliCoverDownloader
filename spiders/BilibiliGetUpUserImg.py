@@ -23,3 +23,5 @@ for up in page.find_all(attrs={'class': 'up-item'}):
     print fansNum
     print 'image url: ' + imgUrl
     print '____________________________________________________________________'
+
+try
