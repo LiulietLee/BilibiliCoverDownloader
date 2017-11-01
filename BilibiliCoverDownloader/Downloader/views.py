@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-10-10 15:09:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-10-17 12:51:54
+# @Last Modified time: 2017-11-01 10:22:40
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -13,6 +13,7 @@ import json
 import sys
 import re
 
+from .models import Waifu2xData
 from .info import cookies
 from .logger import my_timer
 
@@ -178,3 +179,19 @@ def articleCover(request, cv_number):
             return HttpResponse(info_json)
     else:
         return HttpResponse(default_json)
+
+def waifu2xData(request):  
+    try:
+        iphone = request.GET.get('iphone')
+        run_time = request.GET.get('time')
+        img_len = request.GET.get('len')
+        img_wid = request.GET.get('wid')
+        img_area = str(float(img_len)*float(img_wid))
+        status = {'status':'OK'}
+    except:
+        status = {'status':'ERROR'}
+    else:
+        data = Waifu2xData(iphone_type=iphone, run_time=run_time, img_len=img_len, img_wid=img_wid, img_area=img_area)
+        data.save()
+    status_json = json.dumps(status, ensure_ascii=False, indent=2)
+    return HttpResponse(status_json)

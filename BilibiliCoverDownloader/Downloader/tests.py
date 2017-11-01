@@ -48,6 +48,14 @@ class APITests(TestCase):
         Logger.log_title('[test_iosPage]')
         self.base(urls)
 
+    def test_waifu2xData(self):
+        urls = [
+            '/ios/waifu2x/?iphone=7&time=100.10&len=56.4&wid=23.234',
+        ]
+
+        Logger.log_title('[test_waifu2xData]')
+        self.base(urls)
+
     def base(self, urls):
         for i, url in enumerate(urls):
             response = self.client.get(url)
