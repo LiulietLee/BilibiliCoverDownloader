@@ -28,14 +28,14 @@ class APITests(TestCase):
         Logger.log_title('[test_fuckBilibili]')
         self.base(urls)
 
-    def test_searchUpPage(self):
-        urls = [
-            '/ios/upuser-keyword=Lex/',
-            '/ios/upuser-keyword=蕾丝/',
-        ]
+    # def test_searchUpPage(self):
+    #     urls = [
+    #         '/ios/upuser-keyword=Lex/',
+    #         '/ios/upuser-keyword=蕾丝/',
+    #     ]
 
-        Logger.log_title('[test_searchUpPage]')
-        self.base(urls)
+    #     Logger.log_title('[test_searchUpPage]')
+    #     self.base(urls)
 
     def test_iosPage(self):
         urls = [

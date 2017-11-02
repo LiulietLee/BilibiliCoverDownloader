@@ -2,7 +2,7 @@
 # @Author: Haut-Stone
 # @Date:   2017-10-10 15:09:01
 # @Last Modified by:   Haut-Stone
-# @Last Modified time: 2017-11-01 10:22:40
+# @Last Modified time: 2017-11-01 23:51:22
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -172,7 +172,7 @@ def articleCover(request, cv_number):
         else:
             info = {
                 'url': js.split('"')[7],
-                'title': js.split('"')[11],
+                'title': bs.find_all('title')[0].get_text(),
                 'author': js.split('"')[3]
             }
             info_json = json.dumps(info, ensure_ascii=False, indent=2)
